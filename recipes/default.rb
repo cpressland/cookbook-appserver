@@ -12,6 +12,8 @@
 repovars = node['appserver']['repositories']
 uservars = node['appserver']['users']
 temvars  = node['appserver']['templates']
+fwsvars  = node['firewalld']['firewalld_services']
+fwpvars  = node['firewalld']['firewalld_ports']
 
 # --- Disable SELinux (I'll learn it one day)
 
@@ -70,4 +72,32 @@ directory "/downloads" do
   owner "apps"
   group "apps"
   mode "755"
+end
+
+# --- Configure Firewalld
+
+service "firewalld" do
+  action [:enable, :start]
+  only_if { node['firewalld']['enable_firewalld'] }
+end
+
+service "firewalld" do
+  not_if { node['firewalld']['enable_firewalld'] }
+  action [:disable, :stop]
+end
+
+fwpvars.each do |fwpconf|
+  firewalld_port fwpconf[:fwport] do
+    action :add
+    zone fwpconf[:fwzone]
+    only_if { node['firewalld']['enable_firewalld'] }
+  end
+end
+
+fwsvars.each do |fwsconf|
+  firewalld_service fwsconf[:fwservice] do
+    action :add
+    zone fwsconf[:fwzone]
+    only_if { node['firewalld']['enable_firewalld'] }
+  end
 end

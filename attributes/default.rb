@@ -18,3 +18,17 @@ default['appserver']['templates']    = [
  { :temname=>"/etc/auto.master", :temsource=>"conf.auto.master.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},
  { :temname=>"/etc/samba/smb.conf", :temsource=>"conf.smb.conf.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"}
 ]
+
+default['firewalld']['enable_firewalld'] = true
+default['firewalld']['firewalld_ports']          =  [
+  { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
+  { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato
+  { :fwport=>"6789/tcp", :fwzone=>"public" }, # NZBGet
+  { :fwport=>"8989/tcp", :fwzone=>"public" } # Sonarr
+]
+default['firewalld']['firewalld_services']       =  [
+  { :fwservice=>"ssh", :fwzone=>"public" }, # Local SSH
+  { :fwservice=>"http", :fwzone=>"public" }, # Nginx
+  { :fwservice=>"https", :fwzone=>"public" }, # Nginx
+  { :fwservice=>"samba", :fwzone=>"public" } # Samba
+]
