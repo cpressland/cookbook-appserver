@@ -64,3 +64,10 @@ temvars.each do |createtems|
     mode createtems[:temmode]
   end
 end
+
+directory "/downloads" do
+  action :create
+  owner "apps"
+  group "apps"
+  mode "755"
+end
