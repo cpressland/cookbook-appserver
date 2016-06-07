@@ -1,8 +1,13 @@
 
 default['appserver']['packages'] = %w(wget tar git autofs samba samba-client cifs-utils curl htop vim firewalld)
 
+# --- Storage Settings
 default['storage']['share_ip'] = "10.0.50.10"
 default['storage']['share_name'] = "shared"
+
+# --- Service Switches
+default['smb']['enable_smb'] = true
+default['firewalld']['enable_firewalld'] = true
 
 default['appserver']['repositories']   = [
   { :reponame=>"epel", :repodescription=>"Extra Packages for Enterprise Linux", :repobaseurl=>"http://mirrors.ukfast.co.uk/sites/dl.fedoraproject.org/pub/epel/7/x86_64/", :repogpgkey=>"http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"}
@@ -19,7 +24,6 @@ default['appserver']['templates']    = [
  { :temname=>"/etc/samba/smb.conf", :temsource=>"conf.smb.conf.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"}
 ]
 
-default['firewalld']['enable_firewalld'] = true
 default['firewalld']['firewalld_ports']          =  [
   { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
   { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato

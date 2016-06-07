@@ -101,3 +101,15 @@ fwsvars.each do |fwsconf|
     only_if { node['firewalld']['enable_firewalld'] }
   end
 end
+
+# --- Enable or Disable SMB
+
+service "smb" do
+  only_if { node['smb']['enable_smb'] }
+  action [:enable, :start]
+end
+
+service "smb" do
+  not_if { node['smb']['enable_smb'] }
+  action [:disable, :stop]
+end
