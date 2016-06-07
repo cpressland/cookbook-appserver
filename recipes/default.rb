@@ -11,6 +11,8 @@
 
 repovars = node['appserver']['repositories']
 uservars = node['appserver']['users']
+temvars  = node['appserver']['templates']
+
 
 # --- Add Required Users
 
@@ -20,7 +22,6 @@ uservars.each do |createusers|
   end
 
   user createusers[:name] do
-    group createusers[:name]
     home createusers[:home]
     uid createusers[:uid]
     gid createusers[:gid]
@@ -45,5 +46,16 @@ end
 node['appserver']['packages'].each do |package_name|
   package package_name do
     action :install
+  end
+end
+
+# --- Deploy Templates
+
+temvars.each do |createtems|
+  template createtems[:temname] do
+    source createtems[:temsource]
+    owner createtems[:temowner]
+    group createtems[:temgroup]
+    mode createtems[:temmode]
   end
 end

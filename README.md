@@ -10,7 +10,9 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 * Setup a standard cpressland User and Group with appropriate SSH Keys
 
 ### Local Applications
-* Install and Configure Samba with AutoFS to connect to persistent storage, mounted under Apps User
+* Install and Configure Samba with AutoFS to connect to persistent storage
+  * Mounted under apps user as so relevant containers can read-write
+  * Broadcast Downloads Samba Share (/downloads) to remotely access download directory
 * Install and Configure Docker with systemd Scripts for Container Management
 * Deploy and Configure [Glances](https://github.com/nicolargo/glances) /w Docker Support
 
@@ -30,7 +32,7 @@ Chef Cookbook for configuring and managing the Application Server within my Home
   - Will be used to create backups of all Docker Volumes nightly at 3am to persistent storage
 
 ### Docker Volumes, Mount Points & Connections
-* data_downloads
+* /downloads
   * /downloads
     * cpressland/nzbget
     * cpressland/sonarr
