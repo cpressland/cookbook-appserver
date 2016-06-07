@@ -13,6 +13,11 @@ repovars = node['appserver']['repositories']
 uservars = node['appserver']['users']
 temvars  = node['appserver']['templates']
 
+# --- Disable SELinux (I'll learn it one day)
+
+selinux_state "Disable SELinux" do
+  action :disabled
+end
 
 # --- Add Required Users
 
@@ -41,7 +46,7 @@ repovars.each do |createrepos|
   end
 end
 
-# --- Install required packages
+# --- Install base packages
 
 node['appserver']['packages'].each do |package_name|
   package package_name do

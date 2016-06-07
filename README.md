@@ -6,6 +6,7 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 
 ### OS Customisation
 * Fully Patch the Main OS (CentOS 7.2)
+* Disable SELinux
 * Setup a system Apps User and Group with ID's 1550
 * Setup a standard cpressland User and Group with appropriate SSH Keys
 
