@@ -46,8 +46,7 @@ default['docker']['images']    = [
   { :name=>"cpressland/nzbget", :tag=>"latest" },
   { :name=>"cpressland/sonarr", :tag=>"latest" },
   { :name=>"cpressland/couchpotato", :tag=>"latest" },
-  { :name=>"cpressland/plex", :tag=>"latest" },
-  { :name=>"titpetric/netdata", :tag=>"latest" }
+  { :name=>"cpressland/plex", :tag=>"latest" }
 ]
 
 default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)
@@ -60,6 +59,5 @@ default['docker']['containers'] = [
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/etc/localtime:/etc/localtime:ro'] },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :port=>"32400:32400", :volumes=>"config_plex:/config" },
-  { :name=>"netdata", :repo=>"titpetric/netdata", :tag=>"latest", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro'] },
-  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :link=>['php:php', 'ghost:ghost', 'nzbget:nzget', 'sonarr:sonarr', 'couchpotato:couchpotato', 'netdata:netdata'], :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] } # Start Nginx Last due to Link dependencies
+  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :link=>['php:php', 'ghost:ghost', 'nzbget:nzget', 'sonarr:sonarr', 'couchpotato:couchpotato'], :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] } # Start Nginx Last due to Link dependencies
 ]

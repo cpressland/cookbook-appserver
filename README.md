@@ -26,7 +26,6 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 * Deploy and Configure [cpressland/sonarr](https://github.com/cpressland/docker-sonarr) Docker Container
 * Deploy and Configure [cpressland/couchpotato](https://github.com/cpressland/docker-couchpotato) Docker Container
 * Deploy and Configure [cpressland/plex](https://github.com/cpressland/docker-plex) Docker Container
-* Deploy and Configure [titpetric/netdata](https://github.com/titpetric/netdata) Docker Container
 
 ### Transient Docker Containers
 * Deploy and Configure [docker-library/ubuntu](https://hub.docker.com/_/ubuntu/) Docker Container
