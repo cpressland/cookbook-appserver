@@ -113,3 +113,9 @@ service "smb" do
   not_if { node['smb']['enable_smb'] }
   action [:disable, :stop]
 end
+
+# --- Install Docker
+
+docker_service 'default' do
+  action [:create, :start]
+end
