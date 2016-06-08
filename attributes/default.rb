@@ -49,3 +49,9 @@ default['docker']['images']    = [
   { :name=>"cpressland/plex", :tag=>"latest" },
   { :name=>"titpetric/netdata", :tag=>"latest" }
 ]
+
+# default['docker']['volumes']     = [
+#   { :name=>""}
+# ]
+
+default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)

@@ -129,3 +129,9 @@ imgvars.each do |dimages|
     action :pull
   end
 end
+
+node['docker']['volumes'].each do |volume_name|
+  docker_volume volume_name do
+    action :create
+  end
+end
