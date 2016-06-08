@@ -140,6 +140,7 @@ contvars.each do |dcontainers|
    repo dcontainers[:repo]
    tag dcontainers[:tag]
    port dcontainers[:port]
+   links dcontainers[:link]
    volumes dcontainers[:volumes]
    env dcontainers[:env]
  end

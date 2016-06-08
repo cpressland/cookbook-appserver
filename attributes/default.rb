@@ -54,12 +54,12 @@ default['docker']['volumes'] = %w(data_databases data_ghost data_www config_ngin
 
 default['docker']['containers'] = [
   { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :volumes=>"data_databases:/var/lib/mysql", :env=>"MYSQL_ROOT_PASSWORD=#{default['mysql']['root_pass']}" },
-  { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :volumes=>"data_www:/var/www" },
-  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
+  { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :link=>"mariadb", :volumes=>"data_www:/var/www" },
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :volumes=>"data_ghost:/var/lib/ghost" },
   { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :volumes=>"config_nzbget:/config" },
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/etc/localtime:/etc/localtime:ro'] },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :port=>"32400:32400", :volumes=>"config_plex:/config" },
-  { :name=>"netdata", :repo=>"titpetric/netdata", :tag=>"latest", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro'] }
+  { :name=>"netdata", :repo=>"titpetric/netdata", :tag=>"latest", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro'] },
+  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :link=>['php', 'ghost', 'nzbget', 'sonarr', 'couchpotato', 'netdata'], :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] } # Start Nginx Last due to Link dependencies
 ]
