@@ -8,6 +8,7 @@ git clone https://github.com/cpressland/cookbook-appserver.git /root/chef/cookbo
 git clone https://github.com/chef-cookbooks/yum.git /root/chef/cookbooks/yum
 git clone https://github.com/rigrassm/firewalld-cookbook.git /root/chef/cookbooks/firewalld
 git clone https://github.com/skottler/selinux.git /root/chef/cookbooks/selinux
+git clone https://github.com/chef-cookbooks/docker.git /root/chef/cookbooks/docker
 
 
 echo '
