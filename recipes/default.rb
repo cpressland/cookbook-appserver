@@ -15,6 +15,7 @@ temvars  = node['appserver']['templates']
 fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
 imgvars  = node['docker']['images']
+contvars = node['docker']['containers']
 
 # --- Disable SELinux (I'll learn it one day)
 
@@ -115,13 +116,11 @@ service "smb" do
   action [:disable, :stop]
 end
 
-# --- Install Docker
+# --- Beginning of Docker Config
 
 docker_service 'default' do
   action [:create, :start]
 end
-
-# --- Deploy Docker Images
 
 imgvars.each do |dimages|
   docker_image dimages[:name] do
@@ -134,4 +133,14 @@ node['docker']['volumes'].each do |volume_name|
   docker_volume volume_name do
     action :create
   end
+end
+
+contvars.each do |dcontainers|
+ docker_container dcontainers[:name] do
+   repo dcontainers[:repo]
+   tag dcontainers[:tag]
+   port dcontainers[:port]
+   volumes dcontainers[:volumes]
+   env dcontainers[:env]
+ end
 end
