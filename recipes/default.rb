@@ -143,5 +143,6 @@ contvars.each do |dcontainers|
    links dcontainers[:link]
    volumes dcontainers[:volumes]
    env dcontainers[:env]
+   restart_policy 'always'
  end
 end
