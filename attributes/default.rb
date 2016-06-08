@@ -36,3 +36,16 @@ default['firewalld']['firewalld_services']       =  [
   { :fwservice=>"https", :fwzone=>"public" }, # Nginx
   { :fwservice=>"samba", :fwzone=>"public" } # Samba
 ]
+
+default['docker']['images']    = [
+  { :name=>"ubuntu", :tag=>"xenial" },
+  { :name=>"cpressland/nginx", :tag=>"latest" },
+  { :name=>"cpressland/php", :tag=>"latest" },
+  { :name=>"mariadb", :tag=>"latest" },
+  { :name=>"ghost", :tag=>"latest" },
+  { :name=>"cpressland/nzbget", :tag=>"latest" },
+  { :name=>"cpressland/sonarr", :tag=>"latest" },
+  { :name=>"cpressland/couchpotato", :tag=>"latest" },
+  { :name=>"cpressland/plex", :tag=>"latest" },
+  { :name=>"titpetric/netdata", :tag=>"latest" }
+]
