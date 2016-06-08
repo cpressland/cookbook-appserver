@@ -14,6 +14,7 @@ uservars = node['appserver']['users']
 temvars  = node['appserver']['templates']
 fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
+imgvars  = node['docker']['images']
 
 # --- Disable SELinux (I'll learn it one day)
 
@@ -118,4 +119,13 @@ end
 
 docker_service 'default' do
   action [:create, :start]
+end
+
+# --- Deploy Docker Images
+
+imgvars.each do |dimages|
+  docker_image dimages[:name] do
+    tag dimages[:tag]
+    action :pull
+  end
 end
