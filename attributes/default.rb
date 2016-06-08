@@ -1,11 +1,9 @@
 
 default['appserver']['packages'] = %w(wget tar git autofs samba samba-client cifs-utils curl htop vim firewalld)
 
-# --- Storage Settings
-default['storage']['share_ip'] = "10.0.50.10"
-default['storage']['share_name'] = "shared"
+default['storage']['share_ip'] = "10.0.50.10" # IP Address of unRAID Server
+default['storage']['share_name'] = "shared" # Name of Share on unRAID Server
 
-# --- Service Switches
 default['smb']['enable_smb'] = true
 default['firewalld']['enable_firewalld'] = true
 
@@ -49,9 +47,5 @@ default['docker']['images']    = [
   { :name=>"cpressland/plex", :tag=>"latest" },
   { :name=>"titpetric/netdata", :tag=>"latest" }
 ]
-
-# default['docker']['volumes']     = [
-#   { :name=>""}
-# ]
 
 default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)
