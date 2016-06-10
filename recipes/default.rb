@@ -155,6 +155,11 @@ rcontvars.each do |restore|
   end
 end
 
+replace "/root/chef/node.json" do
+  replace '"restore_volumes": true'
+  with    '"restore_volumes": false'
+end
+
 pcontvars.each do |pcontainers|
  docker_container pcontainers[:name] do
    repo pcontainers[:repo]

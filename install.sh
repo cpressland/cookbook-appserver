@@ -15,6 +15,9 @@ git clone https://github.com/jenssegers/chef-patch.git /root/chef/cookbooks/patc
 
 echo '
 {
+  "docker": {
+    "restore_volumes": true
+  },
   "run_list": [ "recipe[appserver::default]" ]
 }' > /root/chef/node.json
 
