@@ -14,18 +14,17 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 * Install and Configure Samba with AutoFS to connect to persistent storage
   * Mounted under apps user as so relevant containers can read-write
   * Broadcast Downloads Samba Share (/downloads) to remotely access download directory
-* Install and Configure Docker with systemd Scripts for Container Management
-* Deploy and Configure [Glances](https://github.com/nicolargo/glances) /w Docker Support
+* Install and Configure Docker
 
 ### Permanent Docker Containers
-* Deploy and Configure [cpressland/nginx](https://github.com/cpressland/docker-nginx) Docker Container
-* Deploy and Configure [cpressland/php](https://github.com/cpressland/docker-php) Docker Container
-* Deploy and Configure [docker-library/mariadb](https://github.com/docker-library/mariadb) Docker Container
-* Deploy and Configure [docker-library/ghost](https://github.com/docker-library/ghost) Docker Container
-* Deploy and Configure [cpressland/nzbget](https://github.com/cpressland/docker-nzbget) Docker Container
-* Deploy and Configure [cpressland/sonarr](https://github.com/cpressland/docker-sonarr) Docker Container
-* Deploy and Configure [cpressland/couchpotato](https://github.com/cpressland/docker-couchpotato) Docker Container
-* Deploy and Configure [cpressland/plex](https://github.com/cpressland/docker-plex) Docker Container
+* Deploy and Configure [cpressland/nginx](https://hub.docker.com/r/cpressland/nginx/) Docker Container
+* Deploy and Configure [cpressland/php](https://hub.docker.com/r/cpressland/php/) Docker Container
+* Deploy and Configure [docker-library/mariadb](https://hub.docker.com/_/mariadb/) Docker Container
+* Deploy and Configure [docker-library/ghost](https://hub.docker.com/_/ghost/) Docker Container
+* Deploy and Configure [cpressland/nzbget](https://hub.docker.com/r/cpressland/nzbget/) Docker Container
+* Deploy and Configure [cpressland/sonarr](https://hub.docker.com/r/cpressland/sonarr/) Docker Container
+* Deploy and Configure [cpressland/couchpotato](https://hub.docker.com/r/cpressland/couchpotato/) Docker Container
+* Deploy and Configure [cpressland/plex](https://hub.docker.com/r/cpressland/plex/) Docker Container
 
 ### Transient Docker Containers
 * Deploy and Configure [docker-library/ubuntu](https://hub.docker.com/_/ubuntu/) Docker Container
