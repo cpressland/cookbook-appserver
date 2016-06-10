@@ -15,7 +15,7 @@ temvars  = node['appserver']['templates']
 fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
 imgvars  = node['docker']['images']
-contvars = node['docker']['containers']
+pcontvars = node['docker']['permanentcontainers']
 
 # --- Disable SELinux (I'll learn it one day)
 
@@ -135,14 +135,14 @@ node['docker']['volumes'].each do |volume_name|
   end
 end
 
-contvars.each do |dcontainers|
- docker_container dcontainers[:name] do
-   repo dcontainers[:repo]
-   tag dcontainers[:tag]
-   port dcontainers[:port]
-   links dcontainers[:link]
-   volumes dcontainers[:volumes]
-   env dcontainers[:env]
+pcontvars.each do |pcontainers|
+ docker_container pcontainers[:name] do
+   repo pcontainers[:repo]
+   tag pcontainers[:tag]
+   port pcontainers[:port]
+   links pcontainers[:link]
+   volumes pcontainers[:volumes]
+   env pcontainers[:env]
    restart_policy 'always'
  end
 end

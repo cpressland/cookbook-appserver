@@ -51,7 +51,7 @@ default['docker']['images']    = [
 
 default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)
 
-default['docker']['containers'] = [
+default['docker']['permanentcontainers'] = [
   { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :volumes=>"data_databases:/var/lib/mysql", :env=>"MYSQL_ROOT_PASSWORD=#{default['mysql']['root_pass']}" },
   { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :link=>"mariadb:mariadb", :volumes=>"data_www:/var/www" },
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :volumes=>"data_ghost:/var/lib/ghost" },
