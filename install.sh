@@ -10,6 +10,7 @@ git clone https://github.com/rigrassm/firewalld-cookbook.git /root/chef/cookbook
 git clone https://github.com/skottler/selinux.git /root/chef/cookbooks/selinux
 git clone https://github.com/chef-cookbooks/docker.git /root/chef/cookbooks/docker
 git clone https://github.com/chef-cookbooks/compat_resource.git /root/chef/cookbooks/compat_resource
+git clone https://github.com/jenssegers/chef-patch.git /root/chef/cookbooks/patch
 
 
 echo '
