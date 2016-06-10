@@ -117,6 +117,12 @@ service "smb" do
   action [:disable, :stop]
 end
 
+# --- Start AutoFS
+
+service 'autofs' do
+  action [:enable, :start]
+end
+
 # --- Beginning of Docker Config
 
 docker_service 'default' do
