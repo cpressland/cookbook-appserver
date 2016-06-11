@@ -69,9 +69,9 @@ default['docker']['permanentcontainers'] = [
   { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :volumes=>"data_databases:/var/lib/mysql", :env=>"MYSQL_ROOT_PASSWORD=#{default['mysql']['root_pass']}" },
   { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :link=>"mariadb:mariadb", :volumes=>"data_www:/var/www" },
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :volumes=>"data_ghost:/var/lib/ghost" },
-  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
-  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
-  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
+  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :link=>['sonarr:sonarr', 'couchpotato:couchpotato'], :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
+  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :link=>"nzbget:nzbget", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
+  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :link=>"nzbget:nzbget", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :port=>"32400:32400", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :link=>['php:php', 'ghost:ghost', 'nzbget:nzget', 'sonarr:sonarr', 'couchpotato:couchpotato'], :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] } # Start Nginx Last due to Link dependencies
 ]
