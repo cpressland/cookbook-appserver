@@ -29,7 +29,10 @@ default['firewalld']['firewalld_ports']          =  [
   { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
   { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato
   { :fwport=>"6789/tcp", :fwzone=>"public" }, # NZBGet
-  { :fwport=>"8989/tcp", :fwzone=>"public" } # Sonarr
+  { :fwport=>"8989/tcp", :fwzone=>"public" }, # Sonarr
+  { :fwport=>"9000/tcp", :fwzone=>"public" }, # PHP-FPM
+  { :fwport=>"3306/tcp", :fwzone=>"public" }, # MariaDB
+  { :fwport=>"2368/tcp", :fwzone=>"public" }, # Ghost
 ]
 default['firewalld']['firewalld_services']       =  [
   { :fwservice=>"ssh", :fwzone=>"public" }, # Local SSH
