@@ -165,6 +165,7 @@ pcontvars.each do |pcontainers|
    repo pcontainers[:repo]
    tag pcontainers[:tag]
    port pcontainers[:port]
+   network_mode pcontainers[:network_mode]
    links pcontainers[:link]
    volumes pcontainers[:volumes]
    env pcontainers[:env]

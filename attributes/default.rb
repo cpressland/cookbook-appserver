@@ -75,6 +75,6 @@ default['docker']['permanentcontainers'] = [
   { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
-  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :port=>"32400:32400", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
+  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] }
 ]
