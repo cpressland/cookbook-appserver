@@ -172,3 +172,14 @@ pcontvars.each do |pcontainers|
    restart_policy 'always'
  end
 end
+
+bcontvars.each do |backup|
+  docker_container backup[:name] do
+    repo backup[:repo]
+    tag backup[:tag]
+    volumes backup[:volumes]
+    autoremove true
+    command backup[:command]
+    only_if { node['docker']['backup_volumes'] }
+  end
+end
