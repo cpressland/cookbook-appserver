@@ -30,8 +30,8 @@ docker_service 'default' do
 end
 
 replace "/root/chef/node.json" do
-  replace '"first_run": true'
-  with    '"first_run": false'
+  replace '"first_run": true,'
+  with    '"first_run": false,'
 end
 
 # --- Add Required Users
