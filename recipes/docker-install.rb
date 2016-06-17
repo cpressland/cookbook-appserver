@@ -17,8 +17,3 @@ replace "/root/chef/node.json" do
   replace 'recipe[appserver::docker-install]'
   with    'recipe[appserver::default]'
 end
-
-log 'notice' do
-  message "Docker is installed, please run 'sudo chef-solo -c /root/chef/solo.rb -j /root/chef/node.json' to finish deployment"
-  level :info
-end
