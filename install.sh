@@ -18,7 +18,7 @@ echo '
   "docker": {
     "restore_volumes": true
   },
-  "run_list": [ "recipe[appserver::default]" ]
+  "run_list": [ "recipe[appserver::docker-install]" ]
 }' > /root/chef/node.json
 
 

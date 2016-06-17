@@ -18,9 +18,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   $ vagrant plugin install vagrant-omnibus
   #
-  if Vagrant.has_plugin?("vagrant-omnibus")
-    config.omnibus.chef_version = '12.7.2'
-  end
+  #if Vagrant.has_plugin?("vagrant-omnibus")
+  #  config.omnibus.chef_version = '12.7.2'
+  #end
 
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
@@ -69,7 +69,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Enabling the Berkshelf plugin. To enable this globally, add this configuration
   # option to your ~/.vagrant.d/Vagrantfile file
-  config.berkshelf.enabled = true
+  # config.berkshelf.enabled = true
 
   # An array of symbols representing groups of cookbook described in the Vagrantfile
   # to exclusively install and copy to Vagrant's shelf.
@@ -79,17 +79,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
-  config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      mysql: {
-        server_root_password: 'rootpass',
-        server_debian_password: 'debpass',
-        server_repl_password: 'replpass'
-      }
-    }
+  #config.vm.provision :chef_solo do |chef|
+  #  chef.json = {
+  #    mysql: {
+  #      server_root_password: 'rootpass',
+  #      server_debian_password: 'debpass',
+  #      server_repl_password: 'replpass'
+  #    }
+  #  }
 
-    chef.run_list = [
-      'recipe[appserver::default]'
-    ]
-  end
+  #  chef.run_list = [
+  #    'recipe[appserver::docker-install]'
+  #  ]
+  # end
 end
