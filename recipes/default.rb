@@ -125,10 +125,6 @@ end
 
 # --- Beginning of Docker Config
 
-docker_service 'default' do
-  action [:create, :start]
-end
-
 imgvars.each do |dimages|
   docker_image dimages[:name] do
     tag dimages[:tag]
