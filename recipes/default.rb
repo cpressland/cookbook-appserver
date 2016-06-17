@@ -70,6 +70,10 @@ temvars.each do |createtems|
   end
 end
 
+execute "reload systemd" do
+  command "systemctl daemon-reload"
+end
+
 directory "/downloads" do
   action :create
   owner "apps"
