@@ -79,6 +79,13 @@ directory "/downloads" do
   mode "755"
 end
 
+directory "/home/cpressland/.ssh" do
+  action :create
+  owner "cpressland"
+  group "cpressland"
+  mode "700"
+end
+
 # --- Configure Firewalld
 
 service "firewalld" do
