@@ -16,7 +16,6 @@ fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
 imgvars  = node['docker']['images']
 pcontvars = node['docker']['permanentcontainers']
-bcontvars = node['docker']['backupcontainers']
 
 # --- Disable SELinux (I'll learn it one day)
 
@@ -167,15 +166,4 @@ pcontvars.each do |pcontainers|
    env pcontainers[:env]
    restart_policy 'always'
  end
-end
-
-bcontvars.each do |backup|
-  docker_container backup[:name] do
-    repo backup[:repo]
-    tag backup[:tag]
-    volumes backup[:volumes]
-    autoremove true
-    command backup[:command]
-    only_if { node['docker']['backup_volumes'] }
-  end
 end
