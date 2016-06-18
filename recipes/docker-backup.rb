@@ -15,6 +15,8 @@ bcontvars.each do |backup|
     tag backup[:tag]
     volumes backup[:volumes]
     autoremove true
+    read_timeout 1200
+    write_timeout 1200
     command backup[:command]
   end
 end

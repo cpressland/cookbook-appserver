@@ -15,6 +15,8 @@ rcontvars.each do |restore|
     tag restore[:tag]
     volumes restore[:volumes]
     autoremove true
+    read_timeout 1200
+    write_timeout 1200
     command restore[:command]
   end
 end
