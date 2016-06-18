@@ -151,6 +151,12 @@ docker_service 'default' do
   action [:create, :start]
 end
 
+group 'docker' do
+  action :modify
+  members 'cpressland'
+  append true
+end
+
 imgvars.each do |dimages|
   docker_image dimages[:name] do
     tag dimages[:tag]
