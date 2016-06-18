@@ -12,9 +12,7 @@ git clone https://github.com/chef-cookbooks/docker.git /var/chef/cookbooks/docke
 git clone https://github.com/chef-cookbooks/compat_resource.git /var/chef/cookbooks/compat_resource
 git clone https://github.com/jenssegers/chef-patch.git /var/chef/cookbooks/patch
 
-export PATH=$PATH:/opt/chef/embedded/bin
-
-echo 'Symlinking Rakeifle to /root'
+ln -s /opt/chef/embedded/bin/rake /bin/rake
 ln -s /var/chef/cookbooks/appserver/Rakefile /root/Rakefile
 
 echo '
