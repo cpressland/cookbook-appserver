@@ -4,27 +4,24 @@ default['appserver']['packages'] = %w(wget tar git autofs samba samba-client cif
 default['storage']['share_ip'] = "10.0.50.10" # IP Address of unRAID Server
 default['storage']['share_name'] = "shared" # Name of Share on unRAID Server
 
-default['mysql']['root_pass'] = "Password1" # Placeholder, overwritten during deployment
-
 default['smb']['enable_smb'] = true
 default['firewalld']['enable_firewalld'] = true
-default['appserver']['first_run'] = false
 
-default['appserver']['repositories']   = [
+default['appserver']['repositories'] = [
   { :reponame=>"epel", :repodescription=>"Extra Packages for Enterprise Linux", :repobaseurl=>"http://mirrors.ukfast.co.uk/sites/dl.fedoraproject.org/pub/epel/7/x86_64/", :repogpgkey=>"http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"}
 ]
 
-default['appserver']['users']          = [
+default['appserver']['users'] = [
   { :name=>"apps", :uid=>1550, :gid=>1550, :home=>"/home/apps" },
   { :name=>"cpressland", :uid=>1551, :gid=>1551, :home=>"/home/cpressland"}
 ]
 
-default['appserver']['directories']    = [
+default['appserver']['directories'] = [
   { :dirname=>"/downloads", :dirowner=>"apps", :dirgroup=>"apps", :dirmode=>"755" },
   { :dirname=>"/home/cpressland/.ssh", :dirowner=>"cpressland", :dirgroup=>"cpressland", :dirmode=>"700" }
 ]
 
-default['appserver']['templates']    = [
+default['appserver']['templates'] = [
  { :temname=>"/etc/auto.shared", :temsource=>"conf.auto.shared.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},
  { :temname=>"/etc/auto.master", :temsource=>"conf.auto.master.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},
  { :temname=>"/etc/samba/smb.conf", :temsource=>"conf.smb.conf.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},
@@ -32,7 +29,7 @@ default['appserver']['templates']    = [
  { :temname=>"/home/cpressland/.ssh/authorized_keys", :temsource=>"conf.authorized_keys.erb", :temmode=>"600", :temowner=>"root", :temgroup=>"root"}
 ]
 
-default['firewalld']['firewalld_ports']          =  [
+default['firewalld']['firewalld_ports'] = [
   { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
   { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato
   { :fwport=>"6789/tcp", :fwzone=>"public" }, # NZBGet
@@ -41,14 +38,14 @@ default['firewalld']['firewalld_ports']          =  [
   { :fwport=>"3306/tcp", :fwzone=>"public" }, # MariaDB
   { :fwport=>"2368/tcp", :fwzone=>"public" }, # Ghost
 ]
-default['firewalld']['firewalld_services']       =  [
+default['firewalld']['firewalld_services'] = [
   { :fwservice=>"ssh", :fwzone=>"public" }, # Local SSH
   { :fwservice=>"http", :fwzone=>"public" }, # Nginx
   { :fwservice=>"https", :fwzone=>"public" }, # Nginx
   { :fwservice=>"samba", :fwzone=>"public" } # Samba
 ]
 
-default['docker']['images']    = [
+default['docker']['images'] = [
   { :name=>"ubuntu", :tag=>"xenial" },
   { :name=>"cpressland/nginx", :tag=>"latest" },
   { :name=>"cpressland/php", :tag=>"latest" },
@@ -62,8 +59,6 @@ default['docker']['images']    = [
 
 default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)
 
-default['docker']['restore_volumes'] = false
-
 default['docker']['restorecontainers'] = [
   { :name=>"restore-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar xzf /docker/volumes/data_databases.tar.gz -C /data/ ." },
   { :name=>"restore-data_ghost", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_ghost:/data'], :command=>"/bin/tar xzf /docker/volumes/data_ghost.tar.gz -C /data/ ." },
@@ -76,7 +71,7 @@ default['docker']['restorecontainers'] = [
 ]
 
 default['docker']['permanentcontainers'] = [
-  { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :port=>'3306:3306', :volumes=>"data_databases:/var/lib/mysql", :env=>"MYSQL_ROOT_PASSWORD=#{default['mysql']['root_pass']}" },
+  { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :port=>'3306:3306', :volumes=>"data_databases:/var/lib/mysql" },
   { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :port=>'9000:9000', :volumes=>"data_www:/var/www" },
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :port=>'2368:2368', :volumes=>"data_ghost:/var/lib/ghost" },
   { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
@@ -85,8 +80,6 @@ default['docker']['permanentcontainers'] = [
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] }
 ]
-
-default['docker']['backup_volumes'] = false
 
 default['docker']['backupcontainers'] = [
   { :name=>"backup-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar czf /docker/volumes/data_databases.tar.gz -C /data/ ." },
