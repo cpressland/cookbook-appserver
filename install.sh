@@ -1,32 +1,30 @@
 #! /bin/bash
 
 yum install -y git
-mkdir -p /root/chef/cache
-mkdir -p /root/chef/cookbooks
+mkdir -p /var/chef/cache
+mkdir -p /var/chef/cookbooks
 curl -L https://www.chef.io/chef/install.sh | bash -s -- -v 12.7.2
-git clone https://github.com/cpressland/cookbook-appserver.git /root/chef/cookbooks/appserver
-git clone https://github.com/chef-cookbooks/yum.git /root/chef/cookbooks/yum
-git clone https://github.com/rigrassm/firewalld-cookbook.git /root/chef/cookbooks/firewalld
-git clone https://github.com/skottler/selinux.git /root/chef/cookbooks/selinux
-git clone https://github.com/chef-cookbooks/docker.git /root/chef/cookbooks/docker
-git clone https://github.com/chef-cookbooks/compat_resource.git /root/chef/cookbooks/compat_resource
-git clone https://github.com/jenssegers/chef-patch.git /root/chef/cookbooks/patch
+git clone https://github.com/cpressland/cookbook-appserver.git /var/chef/cookbooks/appserver
+git clone https://github.com/chef-cookbooks/yum.git /var/chef/cookbooks/yum
+git clone https://github.com/rigrassm/firewalld-cookbook.git /var/chef/cookbooks/firewalld
+git clone https://github.com/skottler/selinux.git /var/chef/cookbooks/selinux
+git clone https://github.com/chef-cookbooks/docker.git /var/chef/cookbooks/docker
+git clone https://github.com/chef-cookbooks/compat_resource.git /var/chef/cookbooks/compat_resource
+git clone https://github.com/jenssegers/chef-patch.git /var/chef/cookbooks/patch
 
+export PATH=$PATH:/var/chef/cookbooks/appserver
 
 echo '
 {
-  "docker": {
-    "first_run": true,
-    "restore_volumes": false
-  },
-  "run_list": [ "recipe[appserver::docker-install]" ]
-}' > /root/chef/node.json
-
+  "run_list": [ "recipe[appserver::default]" ]
+}' > /var/chef/node.json
 
 echo '
   file_cache_path "/root/chef/cache"
   cookbook_path "/root/chef/cookbooks"
   json_attribs "/root/chef/node.json"
-' > /root/chef/solo.rb
+' > /var/chef/solo.rb
 
-sudo chef-solo -c /root/chef/solo.rb -j /root/chef/node.json
+echo '--- info ---'
+echo 'Git Deployment complete, execute rake -T for more information'
+echo '------------'
