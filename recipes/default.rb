@@ -50,6 +50,10 @@ replace '/etc/sudoers' do
   with    '%wheel	ALL=(ALL)	NOPASSWD: ALL'
 end
 
+link '/home/cpressland/Rakefile' do
+  to '/var/chef/cookbooks/appserver/Rakefile'
+end
+
 # --- Create directories
 
 dirvars.each do |createdirs|
