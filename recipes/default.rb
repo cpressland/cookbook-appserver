@@ -45,6 +45,11 @@ group 'wheel' do
   append true
 end
 
+replace '/etc/sudoers' do
+  replace '# %wheel	ALL=(ALL)	NOPASSWD: ALL'
+  with    '%wheel	ALL=(ALL)	NOPASSWD: ALL'
+end
+
 # --- Create directories
 
 dirvars.each do |createdirs|
