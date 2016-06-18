@@ -22,16 +22,6 @@ selinux_state "Disable SELinux" do
   action :disabled
 end
 
-docker_service 'default' do
-  action :stop
-  only_if { node['appserver']['first_run'] }
-end
-
-replace "/root/chef/node.json" do
-  replace '"first_run": true,'
-  with    '"first_run": false,'
-end
-
 # --- Add Required Users
 
 uservars.each do |createusers|
@@ -138,7 +128,7 @@ end
 # --- Beginning of Docker Config
 
 docker_service 'default' do
-  action :start
+  action [:create, :start]
 end
 
 imgvars.each do |dimages|
