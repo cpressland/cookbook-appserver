@@ -19,6 +19,11 @@ default['appserver']['users']          = [
   { :name=>"cpressland", :uid=>1551, :gid=>1551, :home=>"/home/cpressland"}
 ]
 
+default['appserver']['directories']    = [
+  { :dirname=>"/downloads", :dirowner=>"apps", :dirgroup=>"apps", :dirmode=>"755" },
+  { :dirname=>"/home/cpressland/.ssh", :dirowner=>"cpressland", :dirgroup=>"cpressland", :dirmode=>"700" }
+]
+
 default['appserver']['templates']    = [
  { :temname=>"/etc/auto.shared", :temsource=>"conf.auto.shared.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},
  { :temname=>"/etc/auto.master", :temsource=>"conf.auto.master.erb", :temmode=>"644", :temowner=>"root", :temgroup=>"root"},

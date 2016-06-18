@@ -11,6 +11,7 @@
 
 repovars = node['appserver']['repositories']
 uservars = node['appserver']['users']
+dirvars  = node['appserver']['directories']
 temvars  = node['appserver']['templates']
 fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
@@ -35,6 +36,17 @@ uservars.each do |createusers|
     gid createusers[:gid]
     system false
     shell '/bin/bash'
+  end
+end
+
+# --- Create directories
+
+dirvars.each do |createdirs|
+  directory createdirs[:dirname] do
+    owner createdirs[:dirowner]
+    group createdirs[:dirgroup]
+    mode createdirs[:dirmode]
+    action :create
   end
 end
 
@@ -70,20 +82,6 @@ end
 
 execute "reload systemd" do
   command "systemctl daemon-reload"
-end
-
-directory "/downloads" do
-  action :create
-  owner "apps"
-  group "apps"
-  mode "755"
-end
-
-directory "/home/cpressland/.ssh" do
-  action :create
-  owner "cpressland"
-  group "cpressland"
-  mode "700"
 end
 
 # --- Configure Firewalld
