@@ -17,6 +17,7 @@ fwpvars  = node['firewalld']['firewalld_ports']
 imgvars  = node['docker']['images']
 rcontvars = node['docker']['restorecontainers']
 pcontvars = node['docker']['permanentcontainers']
+bcontvars = node['docker']['backupcontainers']
 
 # --- Disable SELinux (I'll learn it one day)
 
