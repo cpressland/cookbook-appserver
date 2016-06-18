@@ -5,15 +5,26 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 # Cookbook Goals:
 
 ### OS Customisation
-* Fully Patch the Main OS (CentOS 7.2)
 * Disable SELinux
-* Setup a system Apps User and Group with ID's 1550
-* Setup a standard cpressland User and Group with appropriate SSH Keys
+* Setup a system user (apps)
+  - UID = 1550
+  - GID = 1550
+* Setup a personal user (cpressland)
+  - UID = 1551
+  - GID = 1551
+  - Install SSH Key
+  - Add to wheel group
+  - Add to docker group
+* Update Sudoers file to let members of 'wheel' run sudo without Password
+
 
 ### Local Applications
 * Install and Configure Samba with AutoFS to connect to persistent storage
-  * Mounted under apps user as so relevant containers can read-write
-  * Broadcast Downloads Samba Share (/downloads) to remotely access download directory
+  - Replace default autofs.service systemd service file
+    * Add "before=docker.service" to let AutoFS start before Docker
+    * Add "ExecStartPost=" option to mount persistent storage immediately
+  - Mounted under apps user as so relevant containers can read-write
+  - Broadcast Downloads Samba Share (/downloads) to remotely access download directory
 * Install and Configure Docker
 
 ### Permanent Docker Containers
