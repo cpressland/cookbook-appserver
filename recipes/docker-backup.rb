@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: appserver
-# Recipe:: docker-restore
+# Recipe:: docker-backup
 #
 # Copyright (C) 2016 Chris Pressland
 #
