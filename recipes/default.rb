@@ -15,7 +15,6 @@ temvars  = node['appserver']['templates']
 fwsvars  = node['firewalld']['firewalld_services']
 fwpvars  = node['firewalld']['firewalld_ports']
 imgvars  = node['docker']['images']
-rcontvars = node['docker']['restorecontainers']
 pcontvars = node['docker']['permanentcontainers']
 bcontvars = node['docker']['backupcontainers']
 
@@ -155,24 +154,6 @@ node['docker']['volumes'].each do |volume_name|
   docker_volume volume_name do
     action :create
   end
-end
-
-# --- If this is the first run, restore data volumes
-
-rcontvars.each do |restore|
-  docker_container restore[:name] do
-    repo restore[:repo]
-    tag restore[:tag]
-    volumes restore[:volumes]
-    autoremove true
-    command restore[:command]
-    only_if { node['docker']['restore_volumes'] }
-  end
-end
-
-replace "/root/chef/node.json" do
-  replace '"restore_volumes": true'
-  with    '"restore_volumes": false'
 end
 
 pcontvars.each do |pcontainers|
