@@ -12,7 +12,10 @@ git clone https://github.com/chef-cookbooks/docker.git /var/chef/cookbooks/docke
 git clone https://github.com/chef-cookbooks/compat_resource.git /var/chef/cookbooks/compat_resource
 git clone https://github.com/jenssegers/chef-patch.git /var/chef/cookbooks/patch
 
-export PATH=$PATH:/var/chef/cookbooks/appserver
+export PATH=$PATH:/opt/chef/embedded/bin
+
+echo 'Symlinking Rakeifle to /root'
+ln -s /var/chef/cookbooks/appserver/Rakefile /root/Rakefile
 
 echo '
 {
@@ -26,5 +29,5 @@ echo '
 ' > /var/chef/solo.rb
 
 echo '--- info ---'
-echo 'Git Deployment complete, execute rake -T for more information'
+echo 'Git & Chef deployment complete, execute "rake -T" for more information'
 echo '------------'
