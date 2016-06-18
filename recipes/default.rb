@@ -39,6 +39,12 @@ uservars.each do |createusers|
   end
 end
 
+group 'wheel' do
+  action :modify
+  members 'cpressland'
+  append true
+end
+
 # --- Create directories
 
 dirvars.each do |createdirs|
