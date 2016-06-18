@@ -28,7 +28,8 @@ Chef Cookbook for configuring and managing the Application Server within my Home
 
 ### Transient Docker Containers
 * Deploy and Configure [docker-library/ubuntu](https://hub.docker.com/_/ubuntu/) Docker Container
-  - Will be used to create backups of all Docker Volumes nightly at 3am to persistent storage
+  - Used for restore of data from persistent storage to Docker Volumes
+  - Used for backup of data from Docker Volumes to persistent storage
 
 ### Docker Volumes, Mount Points & Connections
 * /downloads
@@ -68,11 +69,21 @@ CentOS 7.2.1511
 
 ## Usage
 
-Server can be deployed by calling the following script
+Server can be bootstrapped with the following command:
+
 ```
 curl -L https://raw.githubusercontent.com/cpressland/cookbook-appserver/master/install.sh | bash
 ```
 
-## License and Authors
+Once the script has finished various Rake Tasks are available:
+
+* `rake server:provision` - runs the 'default' recipe, essential
+* `rake docker:restore` - Restores data to Docker Volumes from SMB Network Share
+* `rake docker:backup` - Backs up data from Docker Volumes to SMB Network Share
+* `rake docker:start` - Starts all configured Docker Containers
+* `rake docker:stop` - Stops all chef configured Docker Containers
+* `rake docker:destroy` - Stops and Removes all Docker Containers
+
+## Author
 
 Author:: Chris Pressland (mail@cpressland.io)
