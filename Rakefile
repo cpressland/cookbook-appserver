@@ -34,9 +34,21 @@ namespace :docker do
     system(cmd)
   end
 
-  desc 'Start Docker Containers'
+  desc 'Start All Docker Containers'
   task :start do
     cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-start]"'
+    system(cmd)
+  end
+
+  desc 'Stop All Docker Containers'
+  task :stop do
+    cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-stop]"'
+    system(cmd)
+  end
+
+  desc 'Stop and Delete All Docker Containers (Preserves Docker Volumes)'
+  task :destroy do
+    cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-destroy]"'
     system(cmd)
   end
 
