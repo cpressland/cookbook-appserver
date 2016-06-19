@@ -11,6 +11,7 @@ pcontvars = node['docker']['permanentcontainers']
 
 pcontvars.each do |pcontainers|
  docker_container pcontainers[:name] do
+   kill_after 30
    action [:stop, :delete]
  end
 end
