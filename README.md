@@ -15,16 +15,18 @@ Chef Cookbook for configuring and managing the Application Server within my Home
   - Install SSH Key
   - Add to wheel group
   - Add to docker group
-* Update Sudoers file to let members of 'wheel' run sudo without Password
+* Update Sudoers file to let members of the 'wheel' group run sudo without a password
 
 
 ### Local Applications
-* Install and Configure Samba with AutoFS to connect to persistent storage
+* Install and Configure Samba
+  - Configure Samba for guess only access, map guest to 'apps' user.
+  - Broadcast Downloads Share (/downloads)
+* Install and Configure AutoFS
   - Replace default autofs.service systemd service file
     * Add "before=docker.service" to let AutoFS start before Docker
     * Add "ExecStartPost=" option to mount persistent storage immediately
-  - Mounted under apps user as so relevant containers can read-write
-  - Broadcast Downloads Samba Share (/downloads) to remotely access download directory
+  - Mount network share as 'apps' user
 * Install and Configure Docker
 
 ### Permanent Docker Containers
