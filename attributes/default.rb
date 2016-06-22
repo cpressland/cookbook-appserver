@@ -31,6 +31,7 @@ default['appserver']['templates'] = [
 
 default['firewalld']['firewalld_ports'] = [
   { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
+  { :fwport=>"19999/tcp", :fwzone=>"public" }, # Netdata
   { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato
   { :fwport=>"6789/tcp", :fwzone=>"public" }, # NZBGet
   { :fwport=>"8989/tcp", :fwzone=>"public" }, # Sonarr
@@ -38,6 +39,7 @@ default['firewalld']['firewalld_ports'] = [
   { :fwport=>"3306/tcp", :fwzone=>"public" }, # MariaDB
   { :fwport=>"2368/tcp", :fwzone=>"public" }, # Ghost
 ]
+
 default['firewalld']['firewalld_services'] = [
   { :fwservice=>"ssh", :fwzone=>"public" }, # Local SSH
   { :fwservice=>"http", :fwzone=>"public" }, # Nginx
@@ -57,7 +59,7 @@ default['docker']['images'] = [
   { :name=>"cpressland/plex", :tag=>"latest" }
 ]
 
-default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_nzbget config_sonarr config_couchpotato config_plex)
+default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex)
 
 default['docker']['restorecontainers'] = [
   { :name=>"restore-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar xzf /docker/volumes/data_databases.tar.gz -C /data/ ." },
@@ -68,6 +70,7 @@ default['docker']['restorecontainers'] = [
   { :name=>"restore-config_sonarr", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :command=>"/bin/tar xzf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
   { :name=>"restore-config_couchpotato", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_couchpotato:/data'], :command=>"/bin/tar xzf /docker/volumes/config_couchpotato.tar.gz -C /data/ ." },
   { :name=>"restore-config_plex", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plex:/data'], :command=>"/bin/tar xzf /docker/volumes/config_plex.tar.gz -C /data/ ." }
+  { :name=>"restore-config_netdata", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_netdata:/data'], :command=>"/bin/tar xzf /docker/volumes/config_netdata.tar.gz -C /data/ ." }
 ]
 
 default['docker']['permanentcontainers'] = [
@@ -78,7 +81,8 @@ default['docker']['permanentcontainers'] = [
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
-  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] }
+  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
+  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :port=>"19999:19999", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] }
 ]
 
 default['docker']['backupcontainers'] = [
@@ -90,4 +94,5 @@ default['docker']['backupcontainers'] = [
   { :name=>"backup-config_sonarr", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :command=>"/bin/tar czf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
   { :name=>"backup-config_couchpotato", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_couchpotato:/data'], :command=>"/bin/tar czf /docker/volumes/config_couchpotato.tar.gz -C /data/ ." },
   { :name=>"backup-config_plex", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plex:/data'], :command=>"/bin/tar czf /docker/volumes/config_plex.tar.gz -C /data/ ." }
+  { :name=>"backup-config_netdata", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_netdata:/data'], :command=>"/bin/tar czf /docker/volumes/config_netdata.tar.gz -C /data/ ." }
 ]

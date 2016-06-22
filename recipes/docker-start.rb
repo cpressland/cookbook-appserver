@@ -16,6 +16,7 @@ pcontvars.each do |pcontainers|
    port pcontainers[:port]
    network_mode pcontainers[:network_mode]
    links pcontainers[:link]
+   cap_add pcontainers[:cap_add]
    volumes pcontainers[:volumes]
    env pcontainers[:env]
    restart_policy 'always'
