@@ -56,7 +56,8 @@ default['docker']['images'] = [
   { :name=>"cpressland/nzbget", :tag=>"latest" },
   { :name=>"cpressland/sonarr", :tag=>"latest" },
   { :name=>"cpressland/couchpotato", :tag=>"latest" },
-  { :name=>"cpressland/plex", :tag=>"latest" }
+  { :name=>"cpressland/plex", :tag=>"latest" },
+  { :name=>"cpressland/netdata", :tag=>"latest" }
 ]
 
 default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex)
