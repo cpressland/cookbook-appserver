@@ -1,14 +1,6 @@
 require 'rake'
 
-puts " "
-puts "--- Information ---"
-puts "Usage:"
-puts "Run 'rake server:provision' to build the base server configuration"
-puts "restore volumes with 'rake docker:restore'"
-puts "backup volumes with 'rake docker:backup'"
-puts "start all docker containers with 'rake docker:start'"
-puts "-------------------"
-puts " "
+container_name = ENV['container']
 
 namespace :server do
 
@@ -50,6 +42,12 @@ namespace :docker do
   task :destroy do
     cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-destroy]"'
     system(cmd)
+  end
+
+  desc 'Connect to a Docker Container, use --container "container name" to specify the Container'
+  task :connect do
+      cmd = "docker exec -it #{container_name} /bin/bash"
+      system(cmd)
   end
 
 end
