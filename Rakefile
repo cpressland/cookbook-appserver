@@ -12,6 +12,15 @@ namespace :server do
 
 end
 
+namespace :git do
+
+  desc 'Update AppServer Cookbook'
+  task :pull do
+      cmd = 'cd /var/chef/cookbooks/appserver/ && git pull && cd ~/'
+  end
+
+end
+
 namespace :docker do
 
   desc 'Restore Docker Volumes from Network'
@@ -32,15 +41,33 @@ namespace :docker do
     system(cmd)
   end
 
-  desc 'Stop All Docker Containers'
+  desc 'Restart A Docker Container'
   task :stop do
+    cmd = "docker restart #{container_name}"
+    system(cmd)
+  end
+
+  desc 'Stop All Docker Containers'
+  task :stop_all do
     cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-stop]"'
     system(cmd)
   end
 
+  desc 'Stop A Docker Container'
+  task :stop do
+    cmd = "docker stop #{container_name}"
+    system(cmd)
+  end
+
   desc 'Stop and Delete All Docker Containers (Preserves Docker Volumes)'
-  task :destroy do
+  task :destroy_all do
     cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-destroy]"'
+    system(cmd)
+  end
+
+  desc 'Destroy A Docker Container'
+  task :destroy do
+    cmd = "docker stop #{container_name} && docker rm #{container_name}"
     system(cmd)
   end
 
