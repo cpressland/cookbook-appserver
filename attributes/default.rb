@@ -74,7 +74,7 @@ default['docker']['permanentcontainers'] = [
   { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
-  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"cpressland.io", :port=>"32400:32400", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
+  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
   { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] }
 ]
