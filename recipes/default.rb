@@ -157,6 +157,12 @@ group 'docker' do
   append true
 end
 
+docker_network 'cpressland.io' do
+  subnet '10.0.51.0/24'
+  gateway '10.0.51.1'
+  action :create
+end
+
 imgvars.each do |dimages|
   docker_image dimages[:name] do
     tag dimages[:tag]

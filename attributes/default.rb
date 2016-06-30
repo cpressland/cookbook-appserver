@@ -30,14 +30,7 @@ default['appserver']['templates'] = [
 ]
 
 default['firewalld']['firewalld_ports'] = [
-  { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
-  { :fwport=>"19999/tcp", :fwzone=>"public" }, # Netdata
-  { :fwport=>"5050/tcp", :fwzone=>"public" }, # CouchPotato
-  { :fwport=>"6789/tcp", :fwzone=>"public" }, # NZBGet
-  { :fwport=>"8989/tcp", :fwzone=>"public" }, # Sonarr
-  { :fwport=>"9000/tcp", :fwzone=>"public" }, # PHP-FPM
-  { :fwport=>"3306/tcp", :fwzone=>"public" }, # MariaDB
-  { :fwport=>"2368/tcp", :fwzone=>"public" }, # Ghost
+  { :fwport=>"32400/tcp", :fwzone=>"public" } # Plex
 ]
 
 default['firewalld']['firewalld_services'] = [
@@ -75,15 +68,15 @@ default['docker']['restorecontainers'] = [
 ]
 
 default['docker']['permanentcontainers'] = [
-  { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :port=>'3306:3306', :volumes=>"data_databases:/var/lib/mysql" },
-  { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :port=>'9000:9000', :volumes=>"data_www:/var/www" },
-  { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :port=>'2368:2368', :volumes=>"data_ghost:/var/lib/ghost" },
-  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :port=>"6789:6789", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
-  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :port=>"8989:8989", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
-  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :port=>"5050:5050", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
-  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
-  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
-  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :port=>"19999:19999", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] }
+  { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_databases:/var/lib/mysql" },
+  { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_www:/var/www" },
+  { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_ghost:/var/lib/ghost" },
+  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
+  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
+  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
+  { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"cpressland.io", :port=>"32400:32400", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
+  { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"latest", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
+  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] }
 ]
 
 default['docker']['backupcontainers'] = [
