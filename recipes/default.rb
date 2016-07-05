@@ -153,7 +153,7 @@ end
 
 group 'docker' do
   action :modify
-  members 'cpressland'
+  members ['cpressland', 'apps']
   append true
 end
 
