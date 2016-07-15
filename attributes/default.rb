@@ -51,15 +51,17 @@ default['docker']['images'] = [
   { :name=>"cpressland/couchpotato", :tag=>"ubuntu" },
   { :name=>"cpressland/plex", :tag=>"ubuntu" },
   { :name=>"cpressland/plexpy", :tag=>"ubuntu" },
-  { :name=>"cpressland/netdata", :tag=>"ubuntu" }
+  { :name=>"cpressland/netdata", :tag=>"ubuntu" },
+  { :name=>"cpressland/1710-pack", :tag=>"ubuntu" }
 ]
 
-default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy)
+default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy data_minecraft)
 
 default['docker']['restorecontainers'] = [
   { :name=>"restore-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar xzf /docker/volumes/data_databases.tar.gz -C /data/ ." },
   { :name=>"restore-data_ghost", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_ghost:/data'], :command=>"/bin/tar xzf /docker/volumes/data_ghost.tar.gz -C /data/ ." },
   { :name=>"restore-data_www", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_www:/data'], :command=>"/bin/tar xzf /docker/volumes/data_www.tar.gz -C /data/ ." },
+  { :name=>"restore-data_minecraft", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_minecraft:/data'], :command=>"/bin/tar xzf /docker/volumes/data_minecraft.tar.gz -C /data/ ." },
   { :name=>"restore-config_nginx", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_nginx:/data'], :command=>"/bin/tar xzf /docker/volumes/config_nginx.tar.gz -C /data/ ." },
   { :name=>"restore-config_nzbget", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_nzbget:/data'], :command=>"/bin/tar xzf /docker/volumes/config_nzbget.tar.gz -C /data/ ." },
   { :name=>"restore-config_sonarr", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :command=>"/bin/tar xzf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
@@ -79,13 +81,15 @@ default['docker']['permanentcontainers'] = [
   { :name=>"plexpy", :repo=>"cpressland/plexpy", :tag=>"ubuntu", :network_mode=>"cpressland.io", :volumes=>"config_plexpy:/config" },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"ubuntu", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
-  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"ubuntu", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] }
+  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"ubuntu", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
+  { :name=>"minecraft", :repo=>"cpressland/1710-pack", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"25565:25565", :volumes=>"data_minecraft:/var/www" }
 ]
 
 default['docker']['backupcontainers'] = [
   { :name=>"backup-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar czf /docker/volumes/data_databases.tar.gz -C /data/ ." },
   { :name=>"backup-data_ghost", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_ghost:/data'], :command=>"/bin/tar czf /docker/volumes/data_ghost.tar.gz -C /data/ ." },
   { :name=>"backup-data_www", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_www:/data'], :command=>"/bin/tar czf /docker/volumes/data_www.tar.gz -C /data/ ." },
+  { :name=>"backup-data_minecraft", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_minecraft:/data'], :command=>"/bin/tar czf /docker/volumes/data_minecraft.tar.gz -C /data/ ." },
   { :name=>"backup-config_nginx", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_nginx:/data'], :command=>"/bin/tar czf /docker/volumes/config_nginx.tar.gz -C /data/ ." },
   { :name=>"backup-config_nzbget", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_nzbget:/data'], :command=>"/bin/tar czf /docker/volumes/config_nzbget.tar.gz -C /data/ ." },
   { :name=>"backup-config_sonarr", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :command=>"/bin/tar czf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
