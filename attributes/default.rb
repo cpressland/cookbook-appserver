@@ -82,7 +82,7 @@ default['docker']['permanentcontainers'] = [
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"ubuntu", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
   { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"ubuntu", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
-  { :name=>"minecraft", :repo=>"cpressland/1710-pack", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"25565:25565", :volumes=>"data_minecraft:/var/www" }
+  { :name=>"minecraft", :repo=>"cpressland/1710-pack", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"25565:25565", :volumes=>"data_minecraft:/data" }
 ]
 
 default['docker']['backupcontainers'] = [
