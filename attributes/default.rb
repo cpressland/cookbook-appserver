@@ -52,10 +52,11 @@ default['docker']['images'] = [
   { :name=>"cpressland/plex", :tag=>"ubuntu" },
   { :name=>"cpressland/plexpy", :tag=>"ubuntu" },
   { :name=>"cpressland/netdata", :tag=>"ubuntu" },
-  { :name=>"cpressland/1710-pack", :tag=>"ubuntu" }
+  { :name=>"cpressland/1710-pack", :tag=>"ubuntu" },
+  { :name=>"cpressland/unifi", :tag=>"ubuntu" }
 ]
 
-default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy data_minecraft)
+default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy data_minecraft config_unifi)
 
 default['docker']['restorecontainers'] = [
   { :name=>"restore-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar xzf /docker/volumes/data_databases.tar.gz -C /data/ ." },
@@ -69,6 +70,7 @@ default['docker']['restorecontainers'] = [
   { :name=>"restore-config_plex", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plex:/data'], :command=>"/bin/tar xzf /docker/volumes/config_plex.tar.gz -C /data/ ." },
   { :name=>"restore-config_plexpy", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plexpy:/data'], :command=>"/bin/tar xzf /docker/volumes/config_plexpy.tar.gz -C /data/ ." },
   { :name=>"restore-config_netdata", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_netdata:/data'], :command=>"/bin/tar xzf /docker/volumes/config_netdata.tar.gz -C /data/ ." }
+  { :name=>"restore-config_unifi", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_unifi:/data'], :command=>"/bin/tar xzf /docker/volumes/config_unifi.tar.gz -C /data/ ." }
 ]
 
 default['docker']['permanentcontainers'] = [
@@ -83,6 +85,7 @@ default['docker']['permanentcontainers'] = [
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
   { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"ubuntu", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
   { :name=>"minecraft", :repo=>"cpressland/1710-pack", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"25565:25565", :volumes=>"data_minecraft:/data" }
+  { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['8080:8080', '8443:8443', '8880:8880', '8843:8843' ], :volumes=>"config_unifi:/data" }
 ]
 
 default['docker']['backupcontainers'] = [
@@ -97,4 +100,5 @@ default['docker']['backupcontainers'] = [
   { :name=>"backup-config_plex", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plex:/data'], :command=>"/bin/tar czf /docker/volumes/config_plex.tar.gz -C /data/ ." },
   { :name=>"backup-config_plexpy", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_plexpy:/data'], :command=>"/bin/tar czf /docker/volumes/config_plexpy.tar.gz -C /data/ ." },
   { :name=>"backup-config_netdata", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_netdata:/data'], :command=>"/bin/tar czf /docker/volumes/config_netdata.tar.gz -C /data/ ." }
+  { :name=>"backup-config_unifi", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'config_unifi:/data'], :command=>"/bin/tar czf /docker/volumes/config_unifi.tar.gz -C /data/ ." }
 ]
