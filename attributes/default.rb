@@ -31,17 +31,18 @@ default['appserver']['templates'] = [
 
 default['firewalld']['firewalld_ports'] = [
   { :fwport=>"32400/tcp", :fwzone=>"public" } # Plex
+  { :fwport=>"8080/tcp", :fwzone=>"public" } # Unifi
 ]
 
 default['firewalld']['firewalld_services'] = [
-  { :fwservice=>"ssh", :fwzone=>"public" }, # Local SSH
+  { :fwservice=>"ssh", :fwzone=>"public" }, # SSH
   { :fwservice=>"http", :fwzone=>"public" }, # Nginx
   { :fwservice=>"https", :fwzone=>"public" }, # Nginx
   { :fwservice=>"samba", :fwzone=>"public" } # Samba
 ]
 
 default['docker']['images'] = [
-  { :name=>"ubuntu", :tag=>"xenial" },
+  { :name=>"cpressland/tools", :tag=>"latest"},
   { :name=>"cpressland/nginx", :tag=>"ubuntu" },
   { :name=>"cpressland/php", :tag=>"ubuntu" },
   { :name=>"mariadb", :tag=>"latest" },
@@ -85,7 +86,7 @@ default['docker']['permanentcontainers'] = [
   { :name=>"nginx", :repo=>"cpressland/nginx", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>['data_www:/var/www', 'config_nginx:/etc/nginx'] },
   { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"ubuntu", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
   { :name=>"minecraft", :repo=>"cpressland/1710-pack", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"25565:25565", :volumes=>"data_minecraft:/data" },
-  { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['8080:8080', '8443:8443', '8880:8880', '8843:8843' ], :volumes=>"config_unifi:/data" }
+  { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>"8080:8080", :volumes=>"config_unifi:/data" }
 ]
 
 default['docker']['transientcontainers'] = [
