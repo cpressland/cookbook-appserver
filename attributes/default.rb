@@ -30,7 +30,7 @@ default['appserver']['templates'] = [
 ]
 
 default['firewalld']['firewalld_ports'] = [
-  { :fwport=>"32400/tcp", :fwzone=>"public" } # Plex
+  { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
   { :fwport=>"8080/tcp", :fwzone=>"public" } # Unifi
 ]
 
