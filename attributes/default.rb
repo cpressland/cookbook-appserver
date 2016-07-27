@@ -42,6 +42,7 @@ default['firewalld']['firewalld_services'] = [
 ]
 
 default['docker']['images'] = [
+  { :name=>"alpine", :tag=>"3.4"},
   { :name=>"cpressland/tools", :tag=>"latest"},
   { :name=>"cpressland/nginx", :tag=>"ubuntu" },
   { :name=>"cpressland/php", :tag=>"ubuntu" },
