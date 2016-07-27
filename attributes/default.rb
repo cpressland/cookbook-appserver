@@ -88,6 +88,10 @@ default['docker']['permanentcontainers'] = [
   { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"ubuntu", :network_mode=>"cpressland.io", :port=>['8080:8080', '8443:8443', '8880:8880', '8843:8843' ], :volumes=>"config_unifi:/data" }
 ]
 
+default['docker']['transientcontainers'] = [
+  { :name=>"backup-data_minecraft", :repo=>"cpressland/tools", :tag=>"latest", :volumes=>['/media/shared/docker:/docker', 'data_minecraft:/data'], :command=>"/bin/tar czf /docker/volumes/data_minecraft.tar.gz -C /data/ ." },
+]
+
 default['docker']['backupcontainers'] = [
   { :name=>"backup-data_databases", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar czf /docker/volumes/data_databases.tar.gz -C /data/ ." },
   { :name=>"backup-data_ghost", :repo=>"ubuntu", :tag=>"xenial", :volumes=>['/media/shared/docker:/docker', 'data_ghost:/data'], :command=>"/bin/tar czf /docker/volumes/data_ghost.tar.gz -C /data/ ." },
