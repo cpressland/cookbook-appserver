@@ -23,6 +23,14 @@ end
 
 namespace :docker do
 
+
+  desc 'Run Transient Docker Containers'
+  task :transient do
+    cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-transient]"'
+    system(cmd)
+  end
+
+
   desc 'Restore Docker Volumes from Network'
   task :restore do
     cmd = 'sudo chef-solo -c /var/chef/solo.rb -j /var/chef/node.json --override-runlist "recipe[appserver::docker-restore]"'
