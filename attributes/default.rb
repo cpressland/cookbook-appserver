@@ -43,6 +43,7 @@ default['firewalld']['firewalld_services'] = [
 
 default['docker']['images'] = [
   { :name=>"alpine", :tag=>"3.4"},
+  { :name=>"influxdb", :tag=>"0.13"},
   { :name=>"cpressland/tools", :tag=>"latest"},
   { :name=>"cpressland/nginx", :tag=>"latest" },
   { :name=>"cpressland/php", :tag=>"latest" },
@@ -59,7 +60,7 @@ default['docker']['images'] = [
   { :name=>"cpressland/unifi", :tag=>"latest" }
 ]
 
-default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy data_minecraft config_unifi config_nzbhydra)
+default['docker']['volumes'] = %w(data_databases data_ghost data_www config_nginx config_netdata config_nzbget config_sonarr config_couchpotato config_plex config_plexpy data_minecraft config_unifi config_nzbhydra data_influxdb)
 
 default['docker']['restorecontainers'] = [
   { :name=>"restore-data_databases", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'data_databases:/data'], :command=>"/bin/tar xzf /docker/volumes/data_databases.tar.gz -C /data/ ." },
@@ -78,6 +79,7 @@ default['docker']['restorecontainers'] = [
 ]
 
 default['docker']['permanentcontainers'] = [
+  { :name=>"influxdb", :repo=>"influxdb", :tag=>"0.13", :network_mode=>"cpressland.io", :port=>['8083:8083', '8086:8086'], :volumes=>"data_influxdb:/var/lib/influxdb" },
   { :name=>"mariadb", :repo=>"mariadb", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_databases:/var/lib/mysql" },
   { :name=>"php", :repo=>"cpressland/php", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_www:/var/www" },
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_ghost:/var/lib/ghost" },
