@@ -76,7 +76,7 @@ default['docker']['backupcontainers'] = [
   { :name=>"backup-config_caddy", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_caddy:/data'], :command=>"/bin/tar czf /docker/volumes/config_caddy.tar.gz -C /data/ ." },
   { :name=>"backup-config_nzbget", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_nzbget:/data'], :command=>"/bin/tar czf /docker/volumes/config_nzbget.tar.gz -C /data/ ." },
   { :name=>"backup-config_nzbhydra", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_nzbhydra:/data'], :command=>"/bin/tar czf /docker/volumes/config_nzbhydra.tar.gz -C /data/ ." },
-  { :name=>"backup-config_sonarr", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :command=>"/bin/tar czf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
+  { :name=>"backup-config_sonarr", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_sonarr:/data'], :env=>"XDG_CONFIG_HOME=/data", :command=>"/bin/tar czf /docker/volumes/config_sonarr.tar.gz -C /data/ ." },
   { :name=>"backup-config_couchpotato", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_couchpotato:/data'], :command=>"/bin/tar czf /docker/volumes/config_couchpotato.tar.gz -C /data/ ." },
   { :name=>"backup-config_plex", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_plex:/data'], :command=>"/bin/tar czf /docker/volumes/config_plex.tar.gz -C /data/ ." },
   { :name=>"backup-config_plexpy", :repo=>"alpine", :tag=>"3.4", :volumes=>['/media/shared/docker:/docker', 'config_plexpy:/data'], :command=>"/bin/tar czf /docker/volumes/config_plexpy.tar.gz -C /data/ ." },
