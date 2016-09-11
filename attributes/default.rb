@@ -43,11 +43,8 @@ default['firewalld']['firewalld_services'] = [
 
 default['docker']['images'] = [
   { :name=>"alpine", :tag=>"3.4"},
-  { :name=>"influxdb", :tag=>"0.13"},
   { :name=>"cpressland/tools", :tag=>"latest"},
-  { :name=>"cpressland/nginx", :tag=>"latest" },
-  { :name=>"cpressland/php", :tag=>"latest" },
-  { :name=>"mariadb", :tag=>"latest" },
+  { :name=>"cpressland/caddy", :tag=>"latest" },
   { :name=>"ghost", :tag=>"latest" },
   { :name=>"cpressland/nzbget", :tag=>"latest" },
   { :name=>"cpressland/sonarr", :tag=>"latest" },
@@ -55,7 +52,6 @@ default['docker']['images'] = [
   { :name=>"cpressland/plex", :tag=>"latest" },
   { :name=>"cpressland/plexpy", :tag=>"latest" },
   { :name=>"cpressland/netdata", :tag=>"latest" },
-  { :name=>"cpressland/1710-pack", :tag=>"latest" },
   { :name=>"cpressland/nzbhydra", :tag=>"latest" },
   { :name=>"cpressland/unifi", :tag=>"latest" }
 ]
