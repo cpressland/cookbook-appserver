@@ -31,7 +31,8 @@ default['appserver']['templates'] = [
 
 default['firewalld']['firewalld_ports'] = [
   { :fwport=>"32400/tcp", :fwzone=>"public" }, # Plex
-  { :fwport=>"8080/tcp", :fwzone=>"public" } # Unifi
+  { :fwport=>"8080/tcp", :fwzone=>"public" }, # Unifi
+  { :fwport=>"5075/tcp", :fwzone=>"public"} # NZBHydra - workaround to TLS issues with Caddy + Mono
 ]
 
 default['firewalld']['firewalld_services'] = [
@@ -87,7 +88,7 @@ default['docker']['backupcontainers'] = [
 default['docker']['permanentcontainers'] = [
   { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_ghost:/var/lib/ghost" },
   { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
-  { :name=>"nzbhydra", :repo=>"cpressland/nzbhydra", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"config_nzbhydra:/config" },
+  { :name=>"nzbhydra", :repo=>"cpressland/nzbhydra", :tag=>"latest", :network_mode=>"cpressland.io", :port=>"5075:5075", :volumes=>"config_nzbhydra:/config" },
   { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :network_mode=>"cpressland.io", :env=>"XDG_CONFIG_HOME=/config", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
   { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
   { :name=>"plexpy", :repo=>"cpressland/plexpy", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"config_plexpy:/config" },
