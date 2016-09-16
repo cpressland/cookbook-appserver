@@ -85,16 +85,16 @@ default['docker']['backupcontainers'] = [
 ]
 
 default['docker']['permanentcontainers'] = [
-  { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"data_ghost:/var/lib/ghost" },
-  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
-  { :name=>"nzbhydra", :repo=>"cpressland/nzbhydra", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"config_nzbhydra:/config" },
-  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :network_mode=>"cpressland.io", :env=>"XDG_CONFIG_HOME=/config", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
-  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
-  { :name=>"plexpy", :repo=>"cpressland/plexpy", :tag=>"latest", :network_mode=>"cpressland.io", :volumes=>"config_plexpy:/config" },
+  { :name=>"ghost", :repo=>"ghost", :tag=>"latest", :network_mode=>"cpressland.local", :volumes=>"data_ghost:/var/lib/ghost" },
+  { :name=>"nzbget", :repo=>"cpressland/nzbget", :tag=>"latest", :network_mode=>"cpressland.local", :volumes=>['config_nzbget:/config', '/downloads:/downloads'] },
+  { :name=>"nzbhydra", :repo=>"cpressland/nzbhydra", :tag=>"latest", :network_mode=>"cpressland.local", :volumes=>"config_nzbhydra:/config" },
+  { :name=>"sonarr", :repo=>"cpressland/sonarr", :tag=>"latest", :network_mode=>"cpressland.local", :env=>"XDG_CONFIG_HOME=/config", :volumes=>['config_sonarr:/config', '/downloads:/downloads', '/media/shared/px01/tv:/tv', '/dev/rtc:/dev/rtc:ro'] },
+  { :name=>"couchpotato", :repo=>"cpressland/couchpotato", :tag=>"latest", :network_mode=>"cpressland.local", :volumes=>['config_couchpotato:/config', '/downloads:/downloads', '/media/shared/px01/movies:/movies', '/etc/localtime:/etc/localtime:ro'] },
+  { :name=>"plexpy", :repo=>"cpressland/plexpy", :tag=>"latest", :network_mode=>"cpressland.local", :volumes=>"config_plexpy:/config" },
   { :name=>"plex", :repo=>"cpressland/plex", :tag=>"latest", :network_mode=>"host", :volumes=>['config_plex:/config', '/media/shared/px01/tv:/tv', '/media/shared/px01/movies:/movies'] },
-  { :name=>"caddy", :repo=>"cpressland/caddy", :tag=>"latest", :network_mode=>"cpressland.io", :port=>['80:80', '443:443'], :volumes=>"config_caddy:/config" },
-  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :network_mode=>"cpressland.io", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
-  { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"latest", :network_mode=>"cpressland.io", :port=>"8080:8080", :volumes=>"config_unifi://usr/lib/unifi/data" }
+  { :name=>"caddy", :repo=>"cpressland/caddy", :tag=>"latest", :network_mode=>"cpressland.local", :port=>['80:80', '443:443'], :volumes=>"config_caddy:/config" },
+  { :name=>"netdata", :repo=>"cpressland/netdata", :tag=>"latest", :network_mode=>"cpressland.local", :cap_add=>"SYS_PTRACE", :volumes=>['/proc:/host/proc:ro', '/sys:/host/sys:ro', '/var/run/docker.sock:/var/run/docker.sock', 'config_netdata:/etc/netdata/'] },
+  { :name=>"unifi", :repo=>"cpressland/unifi", :tag=>"latest", :network_mode=>"cpressland.local", :port=>"8080:8080", :volumes=>"config_unifi://usr/lib/unifi/data" }
 ]
 
 default['docker']['transientcontainers'] = [
